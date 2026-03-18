@@ -1,361 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Free Crypto Box · mobile</title>
-  <style>
-    /* RESET & BASE — 100% mobile first */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win Free Crypto</title>
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at 10% 20%, #1a2f3f, #0a0f1a);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      margin: 0;
-      color: #fff;
-      /* mobile touch optimizations */
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    /* compact glass card — fits any mobile screen */
-    .mobile-card {
-      max-width: 400px;   /* comfortable for phones */
-      width: 100%;
-      background: rgba(10, 18, 28, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      border-radius: 36px;
-      padding: 24px 20px 22px;
-      box-shadow: 0 25px 50px -8px black, 0 0 0 1px rgba(34, 197, 94, 0.2) inset;
-      transition: transform 0.1s ease;
-    }
+body{
+  font-family:Arial, sans-serif;
+  background:radial-gradient(circle,#1a2f3f,#0a0f1a);
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;color:#fff;padding:12px;
+}
 
-    /* bigger, bolder headline for small screens */
-    h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(145deg, #22c55e, #bef264);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
+.mobile-card{
+  max-width:400px;width:100%;
+  background:#0a1220;
+  border-radius:30px;
+  padding:24px;
+  text-align:center;
+  border:1px solid #22c55e50;
+}
 
-    h1 span {
-      font-size: 2.2rem;
-      background: none;
-      -webkit-text-fill-color: initial;
-    }
+h1{
+  font-size:2rem;
+  background:linear-gradient(#22c55e,#bef264);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .sub {
-      font-size: 0.95rem;
-      color: #9ca3af;
-      text-align: center;
-      padding-bottom: 14px;
-      border-bottom: 1px dashed #2a3748;
-      margin-bottom: 16px;
-    }
+.sub{color:#9ca3af;margin:8px 0 16px;}
 
-    /* crypto pills — compact but tappable */
-    .crypto-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 14px 0 16px;
-    }
+.crypto-row{display:flex;justify-content:center;gap:10px;margin:10px 0;}
 
-    .chip {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      padding: 10px 18px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-      /* larger touch area */
-      -webkit-tap-highlight-color: rgba(34,197,94,0.2);
-    }
+.chip{
+  background:#22c55e20;
+  padding:10px 16px;
+  border-radius:30px;
+  border:1px solid #22c55e;
+}
 
-    .chip span {
-      font-size: 1.5rem;
-    }
+.urgent{
+  background:#b91c1c;
+  padding:8px;
+  border-radius:30px;
+  margin:10px 0;
+  box-shadow:0 0 10px red;
+}
 
-    /* limited badge – extra juicy */
-    .urgent {
-      background: #b91c1c;
-      color: white;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 6px 16px;
-      border-radius: 40px;
-      display: inline-block;
-      margin: 6px auto 14px;
-      letter-spacing: 0.3px;
-      border: 1px solid #f87171;
-      box-shadow: 0 0 15px #ef4444;
-      text-align: center;
-    }
+#countdown{margin-top:6px;font-weight:bold;}
 
-    /* BUTTON — huge, easy thumb target */
-    .mobile-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      background: linear-gradient(145deg, #22c55e, #15803d);
-      border: none;
-      border-radius: 80px;
-      padding: 18px 16px;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 20px 30px -8px #22c55e, 0 2px 0 0 #86efac inset;
-      margin: 20px 0 16px;
-      transition: all 0.15s;
-      border: 1px solid #86efac;
-      letter-spacing: 0.3px;
-      -webkit-tap-highlight-color: #22c55e;
-    }
+.mobile-btn{
+  display:block;
+  background:linear-gradient(#22c55e,#15803d);
+  padding:16px;
+  border-radius:40px;
+  margin:16px 0;
+  text-decoration:none;
+  color:white;
+  font-weight:bold;
+  font-size:1.3rem;
+}
 
-    .mobile-btn:active {
-      transform: scale(0.98);
-      background: linear-gradient(145deg, #15803d, #166534);
-      box-shadow: 0 8px 20px -4px #22c55e;
-    }
+.mobile-btn:active{transform:scale(0.97);}
 
-    /* trust badges — scrollable if screen tiny, but usually fine */
-    .trust-strip {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 16px;
-      background: #0f1a24;
-      padding: 12px 10px;
-      border-radius: 60px;
-      border: 1px solid #334155;
-      margin: 12px 0 16px;
-    }
+.trust-strip{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  font-size:0.8rem;
+  margin-top:10px;
+  color:#ccc;
+}
 
-    .trust-strip span {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #d4d4d8;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-    }
+.live-counter{
+  margin-top:12px;
+  color:#22c55e;
+}
 
-    /* dynamic counter — mobile friendly */
-    .live-counter {
-      background: #0f212e;
-      border-radius: 60px;
-      padding: 14px 18px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #22c55e;
-      border: 1px solid #22c55e40;
-      text-align: center;
-      margin: 16px 0 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .live-counter span {
-      background: #0b1721;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: white;
-      border: 1px solid #22c55e;
-    }
-
-    /* micro animation: last claim */
-    .micro {
-      font-size: 0.85rem;
-      color: #6b7280;
-      text-align: center;
-      margin: 8px 0 12px;
-      background: #111f2b;
-      padding: 6px 12px;
-      border-radius: 40px;
-      display: inline-block;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* footer links — bigger touch targets for mobile */
-    .footer-row {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin-top: 20px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-
-    .footer-row a {
-      color: #9ca3af;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 8px 0;      /* easier to tap */
-      transition: color 0.15s;
-      -webkit-tap-highlight-color: #22c55e30;
-    }
-
-    .footer-row a:hover {
-      color: #22c55e;
-    }
-
-    .copy-note {
-      font-size: 0.7rem;
-      color: #4b5563;
-      text-align: center;
-    }
-
-    /* no horizontal scroll */
-    img, svg {
-      max-width: 100%;
-    }
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+.micro{
+  font-size:0.8rem;
+  color:#888;
+  margin-top:8px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="mobile-card">
-  <!-- TITLE with emojis (mobile optimized) -->
-  <h1>
-    <span>🎁</span> FREE BOX <span>⚡</span>
-  </h1>
-  <div class="sub">tap to claim your crypto</div>
 
-  <!-- CRYPTO TILES (bigger tap area) -->
-  <div class="crypto-row">
-    <div class="chip"><span>💰</span> USDT</div>
-    <div class="chip"><span>🚀</span> XRP</div>
-    <div class="chip"><span>🐶</span> DOGE</div>
-  </div>
+<h1>💰 WIN $1 CRYPTO ⚡</h1>
+<div class="sub">instant reward · limited daily spins</div>
 
-  <!-- SHORTAGE BADGE + urgency -->
-  <div class="urgent">
-    ⏳ only 19 boxes left – fast
-  </div>
-
-  <!-- BIG GREEN BUTTON (thumb-friendly) -->
-  <a class="mobile-btn" href="https://t.me/redpacket_gift_bot?start=bonus" target="_blank" rel="noopener">
-    🤖 OPEN BOT →
-  </a>
-
-  <!-- TRUST STRIP (condensed for mobile) -->
-  <div class="trust-strip">
-    <span>🛡️ no wallet</span>
-    <span>⚡ instant</span>
-    <span>✅ official</span>
-    <span>🎲 no deposit</span>
-  </div>
-
-  <!-- DYNAMIC COUNTER (with animated update) -->
-  <div class="live-counter" id="counterBox">
-    <span>👥</span> today's users <span id="liveCount">2,483</span>
-  </div>
-
-  <!-- last claim micro-feed (changes to feel alive) -->
-  <div class="micro" id="lastClaimMsg">
-    🔥 last claimed 8 seconds ago
-  </div>
-
-  <!-- DIVIDER + LEGALS (IMPORTANT FOR ADS) -->
-  <hr style="border:0.5px solid #2a3748; margin: 12px 0 10px;">
-  <div class="footer-row">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Support</a>
-  </div>
-  <div class="copy-note">
-    © freecryptobox · independent
-  </div>
+<div class="crypto-row">
+  <div class="chip">USDT</div>
+  <div class="chip">XRP</div>
+  <div class="chip">DOGE</div>
 </div>
 
-<!-- mobile-optimized dynamic script (lightweight) -->
+<div style="font-size:0.9rem;color:#9ca3af;">
+🎁 Get random crypto reward instantly
+</div>
+
+<div class="urgent">
+⏳ only 19 boxes left
+<div id="countdown">⏱️ offer ends in 00:30</div>
+</div>
+
+<a class="mobile-btn" id="mainBtn" href="https://t.me/redpacket_gift_bot?start=bonus">
+🤖 CLAIM YOUR FREE $1 →
+</a>
+
+<div class="trust-strip">
+<span>🛡️ no wallet</span>
+<span>⚡ instant</span>
+<span>✅ safe</span>
+<span>🎲 no deposit</span>
+</div>
+
+<div class="live-counter">
+👥 <span id="liveCount">2483</span> users today
+</div>
+
+<div class="micro" id="msg">
+🔥 just claimed 2 seconds ago
+</div>
+
+<!-- SECOND CTA -->
+<a class="mobile-btn" href="https://t.me/redpacket_gift_bot?start=bonus">
+🔥 GET BONUS SPIN NOW
+</a>
+
+</div>
+
 <script>
-  (function() {
-    // ----- COUNTER (increases slowly) -----
-    let count = 2483;
-    const countSpan = document.getElementById('liveCount');
+// COUNTDOWN
+let time = 30;
+setInterval(()=>{
+  if(time>0){
+    time--;
+    document.getElementById("countdown").innerText =
+    "⏱️ offer ends in 00:"+(time<10?"0"+time:time);
+  }
+},1000);
 
-    function updateCount() {
-      count += Math.floor(Math.random() * 4);  // +0..3
-      if (countSpan) {
-        countSpan.innerText = count.toLocaleString();
-      }
-    }
+// COUNTER
+let count=2483;
+setInterval(()=>{
+  count+=Math.floor(Math.random()*3);
+  document.getElementById("liveCount").innerText=count;
+},5000);
 
-    if (countSpan) {
-      countSpan.innerText = count.toLocaleString();
-      // random interval 6-11 secs
-      function scheduleCount() {
-        let delay = 6000 + Math.floor(Math.random() * 6000);
-        setTimeout(() => {
-          updateCount();
-          scheduleCount();
-        }, delay);
-      }
-      scheduleCount();
-    }
+// MESSAGES
+const msgs=[
+"🔥 someone got 0.8 USDT",
+"🔥 new win: 3 XRP",
+"🔥 reward claimed 5s ago",
+"🔥 0.5 DOGE claimed",
+];
+setInterval(()=>{
+ document.getElementById("msg").innerText=
+ msgs[Math.floor(Math.random()*msgs.length)];
+},4000);
 
-    // ----- LAST CLAIM MESSAGE ROTATOR (feels alive) -----
-    const msgEl = document.getElementById('lastClaimMsg');
-    if (msgEl) {
-      const messages = [
-        '🔥 just claimed 2 seconds ago',
-        '🔥 someone got 0.8 USDT',
-        '🔥 reward claimed 9s ago',
-        '🔥 14 users claimed in last minute',
-        '🔥 new win: 3 XRP',
-        '🔥 last reward 4 seconds ago',
-        '🔥 0.5 DOGE claimed now',
-      ];
-      function rotateMessage() {
-        let randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        msgEl.innerText = randomMsg;
-      }
-      setInterval(rotateMessage, 7000);
-    }
-  })();
+// VIBRATION
+document.getElementById("mainBtn").onclick=()=>{
+ if(navigator.vibrate) navigator.vibrate(50);
+};
+
+// AUTO REDIRECT
+setTimeout(()=>{
+ window.location.href="https://t.me/redpacket_gift_bot?start=bonus";
+},7000);
 </script>
 
-<!-- tiny extra: ensure no zoom on input (but we don't have forms) -->
 </body>
 </html>
